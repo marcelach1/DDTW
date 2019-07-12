@@ -1,7 +1,9 @@
 ### DDTW
 Implementation of the system described in: "Time Series Similarity Search for StreamingData in Distributed Systems" http://www.redaktion.tu-berlin.de/fileadmin/fg131/Publikation/Papers/Time_Series_Similarity_Search_Darli-2019_crv.pdf
 
-The current implementation has been changed to derive the distance threshold from the query.
+Note:<br>
+- The current implementation has been changed to derive the distance threshold from the query, therefore the time it takes for finding the pattern in "One patient, one day, Best Match" mode will take a bit longer than the 37 seconds reported in the paper, the current time is around 62 s.
+- The improvement is better reflected when running in "Range query" mode.
 
 The code can be imported in Intellij or generate the jar with maven and run in the command line as explained below:
 
