@@ -1,5 +1,8 @@
 ### DDTW
-Distributed DTW
+Implementation of the system described in: "Time Series Similarity Search for StreamingData in Distributed Systems" http://www.redaktion.tu-berlin.de/fileadmin/fg131/Publikation/Papers/Time_Series_Similarity_Search_Darli-2019_crv.pdf
+
+The current implementation has been changed to derive the distance threshold from the query.
+
 
 ### Running with Apache Flink on the command line:
 We test this example with flink-1.8.0
