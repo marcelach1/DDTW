@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
+/** Created by Ariane on 12.07.2019.
   --pathInput
   ./src/main/resources/ecgSmall.txt
   --sampleRate
