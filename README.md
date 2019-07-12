@@ -21,4 +21,4 @@ Similarity Search contains the latest DTW version
 
 we added an example ecg set and the original query
 
-orginal data can be found under: https://www.cs.ucr.edu/~eamonn/UCRsuite.html
+orginal data can be found under: http://www.cs.ucr.edu/~eamonn/ECG_one_day.zip
