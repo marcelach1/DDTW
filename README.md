@@ -22,12 +22,12 @@ Run the program:
 ```
 $FLINK_PATH/bin/flink run -p 8 -c simsearch.examples.ECGExample target/DTW-1.1-SNAPSHOT.jar \
                      --pathInput $USER_PATH/src/main/resources/ecgSmall.txt \
-                     --pathOutput $USER_PATH/src/main/resources/ecg_result.txt \
+                     --pathOutput $USER_PATH/src/main/resources/ecg_result \
                      --sampleRate 1000 \
                      --pathPattern $USER_PATH/src/main/resources/ecg_query.txt
 ```
 
-Output result in ecg_result.txt, looks like:
+Output result in ecg_result, looks like:
 ```
 #(startTime, endTime, distance, tsKey, latency)
 ...
