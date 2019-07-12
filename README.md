@@ -24,4 +24,4 @@ Output result in ecg_result.txt, looks like:
 
 
 ### Data
-The data included in this repo is a short of the original file that can be found in: http://www.cs.ucr.edu/~eamonn/ECG_one_day.zip
+The data included in this repo is a short excerpt of the original file that can be found in: http://www.cs.ucr.edu/~eamonn/ECG_one_day.zip
