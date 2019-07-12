@@ -1,10 +1,10 @@
 # DDTW
 Distributed DTW
 
-#get started
+# get started
 run ECGExample with the given parameters on top of the class
 
-#src organization:
+# src organization:
 sources contains the read in of the file
 
 util contains POJO and POJO specific methods
