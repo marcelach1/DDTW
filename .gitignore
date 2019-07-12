@@ -13,7 +13,16 @@ target/
 .settings
 .project
 
-
+#.src/main/resources/ecg.txt
+#src/main/resources/e
+src/main/resources/ecg.txt
+src/main/resources/ecg10days.txt
+src/main/resources/ecg10days1.txt
+src/main/resources/ecg10days2.txt
+src/main/resources/ecg10days3.txt
+#.src/main/resources/ecg_normed.txt
+src/main/resources/ecg_normed.txt
+src/main/resources/e*
 
 *.class
 
