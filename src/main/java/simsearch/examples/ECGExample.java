@@ -25,19 +25,22 @@ import java.util.concurrent.TimeUnit;
 /**
   --pathInput
   ./src/main/resources/ecg50T.txt
-  --pathOutput
-  ./src/main/resources/ecg_result.txt
   --sampleRate
   1000
   --pathPattern
   ./src/main/resources/ecg_query.txt
-  --Sources
-  1
+ --pathOutput
+ ./src/main/resources/ecg_result.txt
  */
-
 public class ECGExample {
 
     public static void main(String[] args) throws Exception {
+
+        if (args.length != 8) {
+            System.out.println("\nRun with parameters: " +
+                    " --pathInput ./src/main/resources/ecg50T.txt --sampleRate 1000 --pathPattern ./src/main/resources/ecg_query.txt --pathOutput ./src/main/resources/ecg_result.txt \n");
+            System.exit(0);
+        }
 
         final ParameterTool params = ParameterTool.fromArgs(args);
 
@@ -69,9 +72,6 @@ public class ECGExample {
         int colNumber = params.getInt("colNumber", 0); // data column
         int timeCol = params.getInt("timeCol", 1); // time column
 
-        int numSources = params.getInt("Sources", 8); // number of time series to analyze
-
-
         // read in of pattern (from file)
         try (BufferedReader br = new BufferedReader(new FileReader(patternPath))) {
 
@@ -99,27 +99,21 @@ public class ECGExample {
         }
 
        /* Check paramters
+        */
+        System.out.println("Input data:" + inputPath);
+        System.out.println("Pattern data:" + patternPath);
         System.out.println("PATTERNSIZE " + patternsize);
         System.out.println("periodMs: " + periodMs + " countTrigger: " + countTrigger + "  maxTimeWindow: " + maxTimeWindow + "  slidOfWindow: " + slideOfWindow);
         System.out.println("Time.milliseconds(maxTimeWindow):  " + Time.milliseconds(maxTimeWindow).toMilliseconds());
         System.out.println("Time.milliseconds(slidOfWindow):  " + Time.milliseconds(slideOfWindow).toMilliseconds());
-        System.out.println("art " + averageResponseTime);
-        */
+        System.out.println("art (averageResponseTime): " + averageResponseTime);
 
         // start streaming environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        int[] array = new int[numSources];
 
-        for (int i = 1; i <= numSources; i++) {
-            array[i - 1] = i;
-        }
-
-        // for each sources do:
-        for (int i : array) {
-            // read the data as a source
-            env.addSource(new SampledSourceFunction(Integer.toString(i), inputPath, sampleRate))
+        env.addSource(new SampledSourceFunction("ecg", inputPath, sampleRate))
                     // assign timestamps and watermarks
                     .assignTimestampsAndWatermarks((AssignerWithPeriodicWatermarks<KeyedDataPoint<Double>>) new KeyedDataPointTimestampAssignerWM(periodMs))
                     // keyBy (will be mire interesting for multi-dimensional time series)
@@ -133,7 +127,6 @@ public class ECGExample {
                     .map(new ECGOutputTransformer())
                     .writeAsText(outputPath, FileSystem.WriteMode.OVERWRITE);
 
-        }
 
         JobExecutionResult result = env.execute("DTW");
         System.out.println("Time of calculation : " + result.getNetRuntime(TimeUnit.SECONDS) + " s");

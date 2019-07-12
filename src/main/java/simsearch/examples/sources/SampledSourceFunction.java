@@ -37,6 +37,7 @@ public class SampledSourceFunction implements SourceFunction<KeyedDataPoint<Doub
         // Here it simulates streaming
         // Here the program simulates stream source, reading the file 10 times*/
 
+        System.out.println("Start reading data");
         double periodMs = Math.round((1.0 / this.samplingRate) * 1000);  // period in miliseconds
 
         double val = 0.0;
@@ -46,10 +47,6 @@ public class SampledSourceFunction implements SourceFunction<KeyedDataPoint<Doub
 
         try {
             scan = new Scanner(file);
-            int count = 1;
-            int dpCounter = 0;
-            int counterS = 0;
-            long timeS = System.currentTimeMillis();
 
             while (scan.hasNext()) {
 
@@ -68,24 +65,6 @@ public class SampledSourceFunction implements SourceFunction<KeyedDataPoint<Doub
 
                 KeyedDataPoint<Double> point = new KeyedDataPoint<Double>(this.key, this.currentTimeMs, val);
                 sourceContext.collect(point);
-                dpCounter++;
-
-                if (System.currentTimeMillis() - timeS > 1000) {
-                    counterS++;
-                    LOG.info(dpCounter + "/s" + "in day" + count + " s " + counterS + " key" + this.key + " time " + System.currentTimeMillis());
-
-                    dpCounter = 0;
-                    timeS = System.currentTimeMillis();
-                }
-
-
-                if (!scan.hasNext() && count <= 9) {
-                    LOG.info("Read File finished, start again " + count);
-                    scan = new Scanner(file);
-                    count++;
-                    counterS = 0;
-                }
-
 
             }
             scan.close();
