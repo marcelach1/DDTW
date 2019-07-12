@@ -24,7 +24,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
   --pathInput
+<<<<<<< HEAD
   ./src/main/resources/ecg50T.txt
+=======
+  ./src/main/resources/ecgSmall.txt
+  --pathOutput
+  ./src/main/resources/ecg_result.txt
+>>>>>>> f6746343a557ceea65cf1b345a15db02669541d3
   --sampleRate
   1000
   --pathPattern
