@@ -3,9 +3,9 @@ Implementation of the system described in: "Time Series Similarity Search for St
 
 Note:<br>
 - The current implementation has been changed to derive the distance threshold from the query, therefore the time it takes for finding the pattern in "One patient, one day, Best Match" mode will take a bit longer than the 37 seconds reported in the paper, the current time is around 62 s.
-- The improvement is better reflected when running in "Range query" mode.
+- The changes included in this code are intended to improve the performance in "Range query" mode, big sets and in a cluster.
 
-The code can be imported in Intellij or generate the jar with maven and run in the command line as explained below:
+The code can be run locally (tested in a laptop), import the code in Intellij or generate the jar with maven and execute it in the command line as explained below:
 
 ### Running with Apache Flink on the command line:
 We test this example with flink-1.8.0
