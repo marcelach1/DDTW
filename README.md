@@ -3,6 +3,7 @@ Implementation of the system described in: "Time Series Similarity Search for St
 
 The current implementation has been changed to derive the distance threshold from the query.
 
+The code can be imported in Intellij or generate the jar with maven and run in the command line as explained below:
 
 ### Running with Apache Flink on the command line:
 We test this example with flink-1.8.0
