@@ -16,3 +16,7 @@ Similarity Search contains the latest DTW version
 (12140520,12140982,4.16,1,5)
 
 (startTime, endTime, distance, tsKey, latency)
+
+we added an example ecg set and the original query
+
+orginal data can be found under: https://www.cs.ucr.edu/~eamonn/UCRsuite.html
