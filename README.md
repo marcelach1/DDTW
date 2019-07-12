@@ -20,13 +20,23 @@ mvn clean package
 ```
 Run the program:
 ```
-$FLINK_PATH/bin/flink run -p 8 -c simsearch.examples.ECGExample target/DTW-1.1-SNAPSHOT.jar --pathInput ./src/main/resources/ecgSmall.txt --pathOutput ./src/main/resources/ecg_result.txt --sampleRate 1000 --pathPattern ./src/main/resources/ecg_query.txt
+$FLINK_PATH/bin/flink run -p 8 -c simsearch.examples.ECGExample target/DTW-1.1-SNAPSHOT.jar \
+                     --pathInput $USER_PATH/src/main/resources/ecgSmall.txt \
+                     --pathOutput $USER_PATH/src/main/resources/ecg_result.txt \
+                     --sampleRate 1000 \
+                     --pathPattern $USER_PATH/src/main/resources/ecg_query.txt
 ```
 
 Output result in ecg_result.txt, looks like:
 ```
-(startTime, endTime, distance, tsKey, latency)
-(12140520,12140982,4.16,1,5)
+#(startTime, endTime, distance, tsKey, latency)
+...
+(2474640,2475102,7.91,ecg_patient1,6)
+(2661120,2661582,3.26,ecg_patient1,8)  <-- best match
+(2781324,2781786,4.6,ecg_patient1,6)
+(2866248,2866710,7.29,ecg_patient1,5)
+(7140504,7140966,4.14,ecg_patient1,6)
+(14398020,14398482,6.33,ecg_patient1,7)
 ```
 
 
