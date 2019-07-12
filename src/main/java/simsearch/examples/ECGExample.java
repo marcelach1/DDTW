@@ -24,13 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
   --pathInput
-<<<<<<< HEAD
-  ./src/main/resources/ecg50T.txt
-=======
   ./src/main/resources/ecgSmall.txt
-  --pathOutput
-  ./src/main/resources/ecg_result.txt
->>>>>>> f6746343a557ceea65cf1b345a15db02669541d3
   --sampleRate
   1000
   --pathPattern
@@ -42,9 +36,9 @@ public class ECGExample {
 
     public static void main(String[] args) throws Exception {
 
-        if (args.length != 8) {
+        if (args.length < 8) {
             System.out.println("\nRun with parameters: " +
-                    " --pathInput ./src/main/resources/ecg50T.txt --sampleRate 1000 --pathPattern ./src/main/resources/ecg_query.txt --pathOutput ./src/main/resources/ecg_result.txt \n");
+                    " --pathInput ./src/main/resources/ecgSmall.txt --sampleRate 1000 --pathPattern ./src/main/resources/ecg_query.txt --pathOutput ./src/main/resources/ecg_result.txt \n");
             System.exit(0);
         }
 
@@ -112,14 +106,14 @@ public class ECGExample {
         System.out.println("periodMs: " + periodMs + " countTrigger: " + countTrigger + "  maxTimeWindow: " + maxTimeWindow + "  slidOfWindow: " + slideOfWindow);
         System.out.println("Time.milliseconds(maxTimeWindow):  " + Time.milliseconds(maxTimeWindow).toMilliseconds());
         System.out.println("Time.milliseconds(slidOfWindow):  " + Time.milliseconds(slideOfWindow).toMilliseconds());
-        System.out.println("art (averageResponseTime): " + averageResponseTime);
+        System.out.println("Search type: " + searchType);
 
         // start streaming environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
 
-        env.addSource(new SampledSourceFunction("ecg", inputPath, sampleRate))
+        env.addSource(new SampledSourceFunction("ecg_patient1", inputPath, sampleRate))
                     // assign timestamps and watermarks
                     .assignTimestampsAndWatermarks((AssignerWithPeriodicWatermarks<KeyedDataPoint<Double>>) new KeyedDataPointTimestampAssignerWM(periodMs))
                     // keyBy (will be mire interesting for multi-dimensional time series)
@@ -135,6 +129,7 @@ public class ECGExample {
 
 
         JobExecutionResult result = env.execute("DTW");
+        System.out.println("Ouput data in:" + outputPath);
         System.out.println("Time of calculation : " + result.getNetRuntime(TimeUnit.SECONDS) + " s");
     }
 
